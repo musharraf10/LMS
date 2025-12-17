@@ -1,6 +1,7 @@
 import jwt from "jsonwebtoken";
 import User from "../models/User.model.js";
 import dotenv from "dotenv";
+import status from "http-status";
 dotenv.config();
 
 const authMiddleware = async (req, res, next) => {
@@ -37,4 +38,24 @@ const authMiddleware = async (req, res, next) => {
   }
 };
 
-export { authMiddleware };
+const isLibrarian = async (req, res, next) => {
+  const userRole = req.user?.role;
+
+  if (!userRole) {
+    return res.status(401).json({
+      success: false,
+      message: "Access denied. No user role found.",
+    });
+  }
+
+  if (userRole !== "librarian") {
+    return res.status(status.FORBIDDEN).json({
+      success: false,
+      message: "Access forbidden. Librarian permissions required.",
+    });
+  }
+
+  next();
+};
+
+export { authMiddleware, isLibrarian };

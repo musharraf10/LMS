@@ -23,7 +23,7 @@ const borrowingRecordSchema = new mongoose.Schema(
     },
     returnDate: {
       type: Date,
-      default: null, // Null until the book is returned
+      default: null,
     },
     isReturned: {
       type: Boolean,

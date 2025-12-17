@@ -1,7 +1,6 @@
 import mongoose from "mongoose";
-import Schema from "mongoose";
 
-const authorSchema = new Schema(
+const authorSchema = new mongoose.Schema(
   {
     firstName: {
       type: String,
@@ -14,7 +13,18 @@ const authorSchema = new Schema(
       required: true,
     },
     bio: {
+      trim: true,
       type: String,
+    },
+    authorId: {
+      type: Number,
+      required: true,
+      validate: {
+        validator: function (v) {
+          return v >= 1000000000 && v <= 9999999999;
+        },
+        message: (props) => `${props.value} is not a valid 10-digit Author ID!`,
+      },
     },
     books: [
       {
@@ -28,4 +38,5 @@ const authorSchema = new Schema(
   }
 );
 
-export default Author = mongoose.model("Author", authorSchema);
+const Author = mongoose.model("Author", authorSchema);
+export default Author;
