@@ -9,7 +9,7 @@ export const addBook = async (req, res) => {
   }
   try {
     const parsedDate = new Date(publicationDate);
-    console.log(parsedDate);
+    //console.log(parsedDate);
 
     if (isNaN(parsedDate.getTime())) {
       return res.status(400).json({ message: "The provided date is invalid." });
