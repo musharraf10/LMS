@@ -18,7 +18,7 @@ export const addBook = async (req, res) => {
     let checkBook = await Book.findOne({ isbn });
 
     if (checkBook) {
-      return res.status(302).json({ message: "Book already registered" });
+      return res.status(409).json({ message: "Book already registered" });
     }
 
     const newBook = new Book({
@@ -27,7 +27,7 @@ export const addBook = async (req, res) => {
       author,
       publicationDate: parsedDate,
       totalCopies,
-      availableCopies: totalCopies,
+      availableCopies: totalCopies, // Initially Using same count for available.
     });
 
     await newBook.save();
