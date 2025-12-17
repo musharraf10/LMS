@@ -1,6 +1,8 @@
 import express from "express";
 import mongoose from "mongoose";
 import userRouter from "./src/routes/user.route.js";
+import authorRouter from "./src/routes/author.route.js";
+import bookRouter from "./src/routes/books.routes.js";
 
 const app = express();
 
@@ -17,7 +19,9 @@ try {
   console.log("Error occured. Try again!", e.message);
 }
 
-app.use("/api/auth", userRouter);
+app.use("/api/v1/auth", userRouter);
+app.use("/api/v1/author", authorRouter);
+app.use("/api/v1/books", bookRouter);
 
 app.listen(8080, () => {
   console.log("App started successfully");

@@ -14,6 +14,13 @@ const bookSchema = new mongoose.Schema({
   },
   publicationDate: {
     type: Date,
+    validate: {
+      validator: function (value) {
+        const year = value.getFullYear();
+        return year > 1400 && year < 2100;
+      },
+      message: "Please enter a realistic publication date.",
+    },
   },
   author: {
     type: mongoose.Schema.Types.ObjectId,
@@ -33,4 +40,5 @@ const bookSchema = new mongoose.Schema({
   },
 });
 
-export default Book = mongoose.model("Book", bookSchema);
+const Book = mongoose.model("Book", bookSchema);
+export default Book;
