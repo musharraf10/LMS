@@ -19,7 +19,7 @@ try {
   console.log("Error occured. Try again!", e.message);
 }
 
-app.use("/api/v1/auth", userRouter);
+app.use("/api/v1/users", userRouter);
 app.use("/api/v1/author", authorRouter);
 app.use("/api/v1/books", bookRouter);
 
